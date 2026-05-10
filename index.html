@@ -1,0 +1,100 @@
+<!-- Name: Anthony Villagomez
+      Project Software Engineering
+      Title: SimpleBug Tracker
+      Description: A simple bug tracking web application that allows users to report bugs, view reported bugs, and update their status.
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpleBug Tracker</title>
+  <link rel="stylesheet" href="style.css"> <!-- Link to the style sheet -->
+</head>
+<body>
+  <header>
+    <h1>Bug Tracker</h1>
+  </header>
+
+  <section class="form-section"> <!-- Form section for reporting bugs -->
+    <h2>Report a New Bug</h2>
+    <form id="bugForm"> <!-- Form to submit new bugs -->
+      <label for="title">Title:</label> <!-- Input for bug title -->
+      <input type="text" id="title" name="title" required> <!-- Required field -->
+
+      <label for="description">Description:</label> <!-- Textarea for bug description -->
+      <textarea id="description" name="description" required></textarea> <!-- Required field -->
+
+      <label for="severity">Severity:</label> <!-- Dropdown for severity level -->
+      <select id="severity" name="severity"> 
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <label for="status">Status:</label> <!-- Dropdown for bug status -->
+      <select id="status" name="status">
+        <option value="Open">Open</option>
+        <option value="In Progress">In Progress</option> 
+        <option value="Resolved">Resolved</option> 
+      </select>
+
+      <button type="submit">Submit Bug</button> <!-- Submit button -->
+    </form>
+  </section>
+
+  <section class="table-section"> <!-- Section to display reported bugs -->
+    <h2>Reported Bugs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Severity</th>
+          <th>Status</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="bugTableBody">
+        <!-- Bugs will be added here -->
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    const form = document.getElementById('bugForm'); // Get the form element
+    const tableBody = document.getElementById('bugTableBody'); // Get the table body element
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent page reload
+
+      // Get form values
+      const title = document.getElementById('title').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const severity = document.getElementById('severity').value;
+      const status = document.getElementById('status').value;
+
+      // Basic validation
+      if (!title || !description) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Create a new row
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>${title}</td>
+        <td>${severity}</td>
+        <td>${status}</td>
+        <td>${description}</td>
+      `;
+
+      // Add the row to the table
+      tableBody.appendChild(newRow);
+
+      // Clear form fields
+      form.reset();
+    });
+  </script>
+</body>
+</html>
